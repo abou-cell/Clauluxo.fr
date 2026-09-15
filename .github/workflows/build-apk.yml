@@ -1,4 +1,4 @@
-name: Build ClauLuxo Flutter V0 APK
+name: Build ClauLuxo Flutter V1 APK
 
 on:
   push:
@@ -18,37 +18,55 @@ jobs:
         with:
           channel: stable
           cache: true
+
+      - name: Reconstruct V1 Flutter source
+        run: |
+          cat v1/main.part* | base64 -d > /tmp/main.dart
+          cp pubspec.yaml /tmp/pubspec.yaml
+
       - name: Prepare Flutter Android project
         run: |
-          cp lib/main.dart /tmp/main.dart
-          cp pubspec.yaml /tmp/pubspec.yaml
           flutter create --platforms=android --project-name clauluxo_mobile --org fr.clauluxo .
           cp /tmp/main.dart lib/main.dart
           cp /tmp/pubspec.yaml pubspec.yaml
           mkdir -p assets
-          base64 -d assets/logo.b64 > assets/logo.png
+          base64 -d assets/logo.b64 > assets/logo.webp
+          base64 -d assets/hero_sleep.b64 > assets/hero_sleep.webp
           rm -rf test analysis_options.yaml
-      - name: Configure Android app name
+
+      - name: Configure Android branding and Internet access
         run: |
+          mkdir -p android/app/src/main/res/drawable
+          cp assets/logo.webp android/app/src/main/res/drawable/clauluxo_logo.webp
           python3 - <<'PY'
           from pathlib import Path
-          p=Path('android/app/src/main/AndroidManifest.xml')
-          s=p.read_text().replace('android:label="clauluxo_mobile"', 'android:label="ClauLuxo"')
+          p = Path('android/app/src/main/AndroidManifest.xml')
+          s = p.read_text()
+          s = s.replace('android:label="clauluxo_mobile"', 'android:label="ClauLuxo"')
+          s = s.replace('android:icon="@mipmap/ic_launcher"', 'android:icon="@drawable/clauluxo_logo"')
+          marker = '<manifest xmlns:android="http://schemas.android.com/apk/res/android">'
+          if 'android.permission.INTERNET' not in s:
+              s = s.replace(marker, marker + '\n    <uses-permission android:name="android.permission.INTERNET"/>')
           p.write_text(s)
           PY
+
       - name: Flutter dependencies
         run: flutter pub get
-      - name: Analyze app source
+
+      - name: Analyze V1 app source
         run: flutter analyze lib/main.dart --no-fatal-infos
-      - name: Build APK
-        run: flutter build apk --debug
-      - name: Collect APK
+
+      - name: Build V1 Release APK
+        run: flutter build apk --release
+
+      - name: Collect V1 APK
         run: |
           mkdir -p dist
-          cp build/app/outputs/flutter-apk/app-debug.apk dist/ClauLuxo-Mobile-V0.apk
-          sha256sum dist/ClauLuxo-Mobile-V0.apk
+          cp build/app/outputs/flutter-apk/app-release.apk dist/ClauLuxo-Mobile-V1.apk
+          sha256sum dist/ClauLuxo-Mobile-V1.apk
+
       - uses: actions/upload-artifact@v4
         with:
-          name: ClauLuxo-Mobile-V0-APK
-          path: dist/ClauLuxo-Mobile-V0.apk
+          name: ClauLuxo-Mobile-V1-APK
+          path: dist/ClauLuxo-Mobile-V1.apk
           retention-days: 30
