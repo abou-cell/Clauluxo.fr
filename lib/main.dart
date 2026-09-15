@@ -204,9 +204,9 @@ class ServicesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final services = [
       ('Sommeil', 'Retrouvez un sommeil réparateur', Icons.nightlight_round, const Color(0xFFEAF4FF)),
-      ('Stress & relaxation', 'Apaisez le mental, retrouvez la sérénité', Icons.self_improvement, const Color(0xFFFFF4E9)),
+      ('Gestion du stress', 'Apaisez le mental, retrouvez la sérénité', Icons.self_improvement, const Color(0xFFFFF4E9)),
       ('Arrêt du tabac', 'Un accompagnement vers plus de liberté', Icons.eco_outlined, const Color(0xFFECF8EF)),
-      ('Minceur / équilibre', 'Retrouvez votre équilibre durablement', Icons.balance, const Color(0xFFF3EEFF)),
+      ('Perte de poids', 'Un accompagnement global et progressif', Icons.balance, const Color(0xFFF3EEFF)),
     ];
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
@@ -306,7 +306,7 @@ class _BookingPageState extends State<BookingPage> {
   int step = 0;
   int dateIndex = 0;
   String selectedTime = '09:00';
-  String service = 'Bilan découverte';
+  String service = 'Bilan préliminaire';
   final name = TextEditingController();
   final email = TextEditingController();
   final phone = TextEditingController();
