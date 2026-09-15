@@ -96,7 +96,7 @@ class BrandHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset('assets/logo.png', height: compact ? 74 : 112, fit: BoxFit.contain),
+        Image.asset('assets/logo.webp', height: compact ? 74 : 112, fit: BoxFit.contain),
         const SizedBox(height: 8),
         Text('Centre de Luxopuncture', textAlign: TextAlign.center, style: TextStyle(fontSize: compact ? 18 : 24, fontWeight: FontWeight.w700, color: ink)),
         Text('Claudine Amerigo', style: TextStyle(fontSize: compact ? 16 : 20, color: aquaDark, fontWeight: FontWeight.w700)),
@@ -269,7 +269,7 @@ class _BookingPageState extends State<BookingPage> {
 
   List<DateTime> get dates => List.generate(7, (i) => DateTime.now().add(Duration(days: i + 1)));
   final times = const ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
-  final services = const ['Bilan découverte', 'Sommeil & sérénité', 'Stress & relaxation', 'Arrêt du tabac', 'Minceur / équilibre'];
+  final services = const ['Bilan préliminaire', 'Sommeil', 'Gestion du stress', 'Arrêt du tabac', 'Perte de poids', 'Ménopause', 'Éclat du visage'];
 
   @override
   void dispose() {
@@ -286,7 +286,7 @@ class _BookingPageState extends State<BookingPage> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text('Planifier une séance', style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, color: ink)), Image.asset('assets/logo.png', height: 54)]),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text('Planifier une séance', style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, color: ink)), Image.asset('assets/logo.webp', height: 54)]),
         const SizedBox(height: 18),
         Row(children: List.generate(3, (i) => Expanded(child: Column(children: [CircleAvatar(radius: 16, backgroundColor: i <= step ? aqua : const Color(0xFFE9ECF4), child: Text('${i + 1}', style: TextStyle(color: i <= step ? Colors.white : ink, fontWeight: FontWeight.w700))), const SizedBox(height: 6), Text(['Date & heure', 'Détails', 'Confirmation'][i], style: TextStyle(fontSize: 11, color: i == step ? aquaDark : const Color(0xFF8A90A0), fontWeight: i == step ? FontWeight.w700 : FontWeight.w500))])))),
         const SizedBox(height: 24),
