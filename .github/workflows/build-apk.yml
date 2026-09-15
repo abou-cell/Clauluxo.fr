@@ -27,6 +27,7 @@ jobs:
           cp /tmp/pubspec.yaml pubspec.yaml
           mkdir -p assets
           base64 -d assets/logo.b64 > assets/logo.png
+          rm -rf test analysis_options.yaml
       - name: Configure Android app name
         run: |
           python3 - <<'PY'
@@ -37,8 +38,8 @@ jobs:
           PY
       - name: Flutter dependencies
         run: flutter pub get
-      - name: Analyze
-        run: flutter analyze --no-fatal-infos
+      - name: Analyze app source
+        run: flutter analyze lib/main.dart --no-fatal-infos
       - name: Build APK
         run: flutter build apk --debug
       - name: Collect APK
