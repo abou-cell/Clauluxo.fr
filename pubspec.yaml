@@ -1,7 +1,7 @@
 name: clauluxo_mobile
-description: Prototype Flutter V0 - Centre de Luxopuncture Claudine Amerigo
+description: Application mobile ClauLuxo V1 - Centre de Luxopuncture Claudine Amerigo
 publish_to: 'none'
-version: 0.0.1+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -13,4 +13,5 @@ dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/logo.png
+    - assets/logo.webp
+    - assets/hero_sleep.webp
