@@ -31,6 +31,10 @@ Prototype autorisé sur le forfait Firebase Spark, avec un objectif de coût d�
 
 Ne pas inventer de project ID, d’App ID, de clé API ou de Sender ID. La configuration FlutterFire sera générée seulement après connexion à Firebase Console et sélection du projet réel.
 
+## Application Web enregistrée
+
+Application Firebase : **Clauluxo Web Prototype**. L’enregistrement Web est terminé dans le projet Spark. La configuration Flutter officielle doit être générée par FlutterFire afin de préserver la cohérence des plateformes.
+
 ## Projet Firebase
 
 Project ID confirmé : clauluxo-c5de9. Console : https://console.firebase.google.com/project/clauluxo-c5de9/overview
