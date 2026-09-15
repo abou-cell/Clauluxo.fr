@@ -118,6 +118,8 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
       children: [
         const BrandHeader(),
+        const SizedBox(height: 16),
+        ClipRRect(borderRadius: BorderRadius.circular(26), child: Image.asset('assets/hero.svg', height: 190, width: double.infinity, fit: BoxFit.cover)),
         const SizedBox(height: 22),
         Text(
           'Retrouvez sommeil, sérénité et vitalité grâce à la',
@@ -245,10 +247,52 @@ class ServicesPage extends StatelessWidget {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [CircleAvatar(backgroundColor: Colors.white, child: Icon(s.$3, color: i.isEven ? aquaDark : lavender)), const Spacer(), Text(s.$1, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: ink)), const SizedBox(height: 6), Text(s.$2, style: const TextStyle(fontSize: 12, color: Color(0xFF6E7486)))]),
             );
           },
-        )
+        ),
+        const SizedBox(height: 22),
+        const PricingSection(),
+        const SizedBox(height: 22),
+        const FaqSection(),
       ],
     );
   }
+}
+
+class PricingSection extends StatelessWidget {
+  const PricingSection({super.key});
+  static const prices = [
+    ('Bilan préliminaire', 'Consultation personnalisée d’environ 1 h', '60 €'),
+    ('Séance individuelle', 'Séance de luxopuncture à l’unité', '55 €'),
+    ('Forfait perte de poids', 'Programme de 13 séances', '650 €'),
+    ('Forfait relaxation', 'Programme de 7 séances', '350 €'),
+    ('Bien-être ménopause', 'Programme de 8 séances', '400 €'),
+    ('Éclat du visage', 'Programme de 8 séances', '400 €'),
+    ('Arrêt du tabac', 'Programme complet de 7 séances', '350 €'),
+    ('Forfait entretien', '3 séances de suivi', '150 €'),
+  ];
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    const Text('Nos tarifs', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: ink)),
+    const SizedBox(height: 6),
+    const Text('Les tarifs présentés sont ceux publiés sur le site officiel.', style: TextStyle(color: Color(0xFF737B90))),
+    const SizedBox(height: 12),
+    ...prices.map((p) => Container(margin: const EdgeInsets.only(bottom: 8), padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: line)), child: Row(children: [Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(p.$1, style: const TextStyle(fontWeight: FontWeight.w700, color: ink)), const SizedBox(height: 3), Text(p.$2, style: const TextStyle(fontSize: 12, color: Color(0xFF737B90)))]), Text(p.$3, style: const TextStyle(fontWeight: FontWeight.w800, color: aquaDark))])),
+  ]);
+}
+
+class FaqSection extends StatelessWidget {
+  const FaqSection({super.key});
+  static const items = [
+    ('Qu’est-ce que la luxothérapie ?', 'Une approche de bien-être utilisant des séquences lumineuses et une stimulation visuelle douce.'),
+    ('Combien de temps dure une séance ?', 'Une séance dure généralement entre 20 et 30 minutes, selon les besoins de la personne.'),
+    ('La méthode est-elle douloureuse ?', 'Non, elle est présentée comme douce, non invasive et généralement bien tolérée.'),
+    ('La luxothérapie remplace-t-elle un suivi médical ?', 'Non. Elle s’inscrit dans une démarche complémentaire de bien-être et ne remplace ni un avis ni un traitement médical.'),
+  ];
+  @override
+  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    const Text('Questions fréquentes', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: ink)),
+    const SizedBox(height: 8),
+    ...items.map((item) => Card(margin: const EdgeInsets.only(bottom: 6), elevation: 0, color: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: const BorderSide(color: line)), child: ExpansionTile(title: Text(item.$1, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)), childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 14), children: [Align(alignment: Alignment.centerLeft, child: Text(item.$2, style: const TextStyle(color: Color(0xFF687086))))]))),
+  ]);
 }
 
 class BookingPage extends StatefulWidget {
