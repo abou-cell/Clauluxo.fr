@@ -13,5 +13,5 @@ dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/logo.webp
-    - assets/hero_sleep.webp
+    - assets/logo.svg
+    - assets/hero.svg
