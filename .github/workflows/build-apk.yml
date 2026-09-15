@@ -1,0 +1,53 @@
+name: Build ClauLuxo Flutter V0 APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Prepare Flutter Android project
+        run: |
+          cp lib/main.dart /tmp/main.dart
+          cp pubspec.yaml /tmp/pubspec.yaml
+          flutter create --platforms=android --project-name clauluxo_mobile --org fr.clauluxo .
+          cp /tmp/main.dart lib/main.dart
+          cp /tmp/pubspec.yaml pubspec.yaml
+          mkdir -p assets
+          base64 -d assets/logo.b64 > assets/logo.png
+      - name: Configure Android app name
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('android/app/src/main/AndroidManifest.xml')
+          s=p.read_text().replace('android:label="clauluxo_mobile"', 'android:label="ClauLuxo"')
+          p.write_text(s)
+          PY
+      - name: Flutter dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+      - name: Build APK
+        run: flutter build apk --debug
+      - name: Collect APK
+        run: |
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-debug.apk dist/ClauLuxo-Mobile-V0.apk
+          sha256sum dist/ClauLuxo-Mobile-V0.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ClauLuxo-Mobile-V0-APK
+          path: dist/ClauLuxo-Mobile-V0.apk
+          retention-days: 30
