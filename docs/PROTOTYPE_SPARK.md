@@ -31,6 +31,10 @@ Prototype autorisé sur le forfait Firebase Spark, avec un objectif de coût d�
 
 Ne pas inventer de project ID, d’App ID, de clé API ou de Sender ID. La configuration FlutterFire sera générée seulement après connexion à Firebase Console et sélection du projet réel.
 
+## Projet Firebase
+
+Project ID confirmé : clauluxo-c5de9. Console : https://console.firebase.google.com/project/clauluxo-c5de9/overview
+
 ## Prochaine action technique
 
 1. créer ou sélectionner un projet Firebase Spark ;
