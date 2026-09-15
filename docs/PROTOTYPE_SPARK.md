@@ -33,7 +33,7 @@ Ne pas inventer de project ID, d’App ID, de clé API ou de Sender ID. La confi
 
 ## Application Web enregistrée
 
-Application Firebase : **Clauluxo Web Prototype**. L’enregistrement Web est terminé dans le projet Spark. La configuration Flutter officielle doit être générée par FlutterFire afin de préserver la cohérence des plateformes.
+Application Firebase : **Clauluxo Web Prototype**. L’enregistrement Web est terminé dans le projet Spark. La configuration Web du prototype est maintenant ajoutée dans le projet Flutter. Android et iOS restent volontairement en attente de l’enregistrement de leurs applications et de leurs identifiants propres.
 
 ## Projet Firebase
 
