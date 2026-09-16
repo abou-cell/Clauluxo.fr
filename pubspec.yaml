@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  firebase_core: ^4.0.0
 
 flutter:
   uses-material-design: true

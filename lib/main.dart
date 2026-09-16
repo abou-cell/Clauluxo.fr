@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ClauLuxoApp());
 }
 
@@ -259,6 +263,7 @@ class ServicesPage extends StatelessWidget {
 
 class PricingSection extends StatelessWidget {
   const PricingSection({super.key});
+
   static const prices = [
     ('Bilan préliminaire', 'Consultation personnalisée d’environ 1 h', '60 €'),
     ('Séance individuelle', 'Séance de luxopuncture à l’unité', '55 €'),
@@ -269,14 +274,76 @@ class PricingSection extends StatelessWidget {
     ('Arrêt du tabac', 'Programme complet de 7 séances', '350 €'),
     ('Forfait entretien', '3 séances de suivi', '150 €'),
   ];
+
   @override
-  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    const Text('Nos tarifs', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: ink)),
-    const SizedBox(height: 6),
-    const Text('Les tarifs présentés sont ceux publiés sur le site officiel.', style: TextStyle(color: Color(0xFF737B90))),
-    const SizedBox(height: 12),
-    ...prices.map((p) => Container(margin: const EdgeInsets.only(bottom: 8), padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: line)), child: Row(children: [Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(p.$1, style: const TextStyle(fontWeight: FontWeight.w700, color: ink)), const SizedBox(height: 3), Text(p.$2, style: const TextStyle(fontSize: 12, color: Color(0xFF737B90)))]), Text(p.$3, style: const TextStyle(fontWeight: FontWeight.w800, color: aquaDark))])),
-  ]);
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Nos tarifs',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: ink,
+          ),
+        ),
+        const SizedBox(height: 6),
+        const Text(
+          'Les tarifs présentés sont ceux publiés sur le site officiel.',
+          style: TextStyle(color: Color(0xFF737B90)),
+        ),
+        const SizedBox(height: 12),
+        ...prices.map(
+          (p) => Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 12,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: line),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        p.$1,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: ink,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        p.$2,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF737B90),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  p.$3,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: aquaDark,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class FaqSection extends StatelessWidget {
