@@ -1,0 +1,47 @@
+name: Build KieChat APK
+
+on:
+  push:
+    branches:
+      - kiechat-apk-build
+    paths:
+      - "kiechat-android/**"
+      - ".github/workflows/kiechat-apk.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Build debug APK
+        working-directory: kiechat-android
+        run: gradle --no-daemon assembleDebug
+
+      - name: Rename APK
+        run: |
+          mkdir -p dist
+          cp kiechat-android/app/build/outputs/apk/debug/app-debug.apk dist/KieChat-Connect.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: KieChat-Connect-APK
+          path: dist/KieChat-Connect.apk
+          if-no-files-found: error
