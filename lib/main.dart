@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'firebase_options.dart';
+import 'map_embed.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,17 +14,29 @@ Future<void> main() async {
   runApp(const ClauLuxoApp());
 }
 
-const Color aqua = Color(0xFF55CFC6);
-const Color aquaDark = Color(0xFF33B8AF);
-const Color lavender = Color(0xFF9D7CF4);
-const Color ink = Color(0xFF18233A);
-const Color muted = Color(0xFF687086);
-const Color softBg = Color(0xFFF7F8FB);
-const Color line = Color(0xFFE8EAF1);
+const Color aqua = Color(0xFF59D4C4);
+const Color aquaDark = Color(0xFF24D1BB);
+const Color lavender = Color(0xFF9069FF);
+const Color ink = Color(0xFF4D4B52);
+const Color muted = Color(0xFF7A7A7A);
+const Color softBg = Color(0xFFF7F7F5);
+const Color line = Color(0xFFE9E9E9);
 
 const String officialSite = 'https://clauluxo.fr/';
 const String mapUrl =
     'https://www.google.com/maps/search/?api=1&query=28+impasse+des+Acacias+13320+Bouc-Bel-Air';
+const String calendlyUrl =
+    'https://calendly.com/amerigo-claudine1201/seance-equilibre?hide_event_type_details=1&hide_gdpr_banner=1';
+const String phoneUrl = 'tel:+33620985806';
+const String emailUrl = 'mailto:contact@luxotherapie-amerigo.com';
+const String facebookUrl =
+    'https://www.facebook.com/CAluxopuncture?rdid=xMwJmuEGDrtRpmLz&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F14Z9NaGd3pp%2F#';
+const String instagramUrl =
+    'https://www.instagram.com/ca_luxopuncture?igsh=b2J5ZWowZ3p3cHQz';
+
+Future<void> openExternalUrl(String url) async {
+  await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+}
 
 class ServiceItem {
   const ServiceItem({
@@ -32,6 +45,7 @@ class ServiceItem {
     required this.description,
     required this.icon,
     required this.color,
+    required this.imageAsset,
     required this.bullets,
   });
 
@@ -40,6 +54,7 @@ class ServiceItem {
   final String description;
   final IconData icon;
   final Color color;
+  final String imageAsset;
   final List<String> bullets;
 }
 
@@ -47,92 +62,92 @@ const services = <ServiceItem>[
   ServiceItem(
     title: 'Gestion du stress',
     shortDescription: 'Retrouver calme et sérénité',
-    description:
-        'La Luxopuncture accompagne la réduction du stress et de l’anxiété grâce à une approche douce et personnalisée.',
+    description: '''Dans un quotidien souvent marqué par un rythme intense, les responsabilités et les sollicitations permanentes, le stress peut progressivement s’installer et affecter l’équilibre physique et émotionnel. La Luxopuncture propose une approche douce et naturelle pour accompagner la détente et favoriser un retour à un état de calme intérieur. Grâce à des séquences lumineuses spécifiques associées à une stimulation visuelle contrôlée, elle aide à diminuer les tensions mentales, à apaiser l’activité cognitive excessive et à favoriser un relâchement profond du corps et de l’esprit.''',
     icon: Icons.self_improvement,
     color: Color(0xFFFFF2E6),
+    imageAsset: 'assets/site/stress.jpg',
     bullets: [
+      'Réduction du stress et de l’anxiété',
       'Diminution des tensions et des compulsions',
-      'Moment de détente profonde',
-      'Accompagnement personnalisé selon vos besoins',
+      'Retour à un meilleur équilibre émotionnel',
     ],
   ),
   ServiceItem(
     title: 'Sommeil',
     shortDescription: 'Favoriser un sommeil réparateur',
-    description:
-        'Un accompagnement bien-être pour retrouver un rythme plus serein et améliorer la qualité du sommeil.',
+    description: '''Le sommeil joue un rôle essentiel dans l’équilibre physique et mental. La Luxopuncture peut aider à favoriser un état de relaxation profonde propice à l’endormissement. Elle aide à apaiser le mental, à relâcher les tensions et à préparer naturellement l’organisme au repos.''',
     icon: Icons.nightlight_round,
     color: Color(0xFFEAF4FF),
+    imageAsset: 'assets/site/sleep.jpg',
     bullets: [
       'Favoriser l’endormissement',
-      'Retrouver un sommeil plus régulier',
-      'Apaiser le mental avant le repos',
+      'Apaiser le mental',
+      'Retrouver un sommeil plus paisible et réparateur',
     ],
   ),
   ServiceItem(
     title: 'Perte de poids',
     shortDescription: 'Un accompagnement progressif',
-    description:
-        'La séance s’inscrit dans une démarche globale et progressive, adaptée aux objectifs de chaque personne.',
+    description: '''La gestion du poids est souvent liée au stress, aux habitudes alimentaires, aux émotions et au rythme de vie. La Luxopuncture peut accompagner une démarche globale en aidant à mieux prendre conscience de ses habitudes, à réduire certains comportements alimentaires impulsifs et à renforcer la motivation.''',
     icon: Icons.balance,
     color: Color(0xFFF3EEFF),
+    imageAsset: 'assets/site/weight.jpg',
     bullets: [
       'Accompagnement des compulsions',
       'Objectifs personnalisés',
-      'Suivi progressif et bienveillant',
+      'Programme de 13 séances adapté à une perte jusqu’à 10 kg',
     ],
   ),
   ServiceItem(
     title: 'Arrêt du tabac',
     shortDescription: 'Un accompagnement vers plus de liberté',
-    description:
-        'Un parcours personnalisé pour accompagner la démarche d’arrêt du tabac dans un cadre calme et bienveillant.',
+    description: 'Le site officiel propose un programme complet de 7 séances pour accompagner la démarche d’arrêt du tabac.',
     icon: Icons.eco_outlined,
     color: Color(0xFFECF8EF),
+    imageAsset: 'assets/site/hero-treatment.jpg',
     bullets: [
-      'Programme adapté à votre situation',
-      'Écoute et accompagnement individualisés',
-      'Objectif de mieux-être durable',
+      'Programme complet de 7 séances',
+      'Accompagnement personnalisé',
+      'Démarche complémentaire de bien-être',
     ],
   ),
   ServiceItem(
     title: 'Énergie et vitalité',
     shortDescription: 'Retrouver tonus et équilibre',
-    description:
-        'Une approche orientée vers le mieux-être, la vitalité et la recherche d’un équilibre au quotidien.',
+    description: '''La fatigue mentale et physique peut s’installer sous l’effet du stress, d’un rythme de vie soutenu ou d’un manque de récupération. La Luxopuncture peut contribuer à stimuler naturellement l’éveil et la concentration, à améliorer la clarté d’esprit et à renforcer la sensation d’énergie intérieure.''',
     icon: Icons.bolt_outlined,
     color: Color(0xFFFFF5E8),
+    imageAsset: 'assets/site/energy.jpg',
     bullets: [
       'Soutenir la vitalité',
-      'Prendre un temps pour soi',
+      'Améliorer la concentration',
       'Retrouver une dynamique positive',
     ],
   ),
   ServiceItem(
     title: 'Éclat du visage',
     shortDescription: 'Une parenthèse beauté et détente',
-    description:
-        'Une séance de bien-être consacrée à la détente et à l’éclat du visage.',
+    description: '''La qualité de la peau et l’éclat du visage peuvent être influencés par le stress, la fatigue et le manque de sommeil. La Luxopuncture propose une approche douce qui favorise la relaxation et peut contribuer à retrouver un teint plus frais et reposé.''',
     icon: Icons.face_retouching_natural,
     color: Color(0xFFFFEEF4),
+    imageAsset: 'assets/site/face.jpg',
     bullets: [
       'Moment de relaxation',
-      'Soin orienté bien-être',
+      'Sensation de visage plus apaisé et lumineux',
       'Approche douce et non invasive',
     ],
   ),
   ServiceItem(
     title: 'Ménopause',
     shortDescription: 'Un accompagnement personnalisé',
-    description:
-        'Un accompagnement adapté aux besoins de la période de ménopause, dans une démarche globale de bien-être.',
+    description: '''La ménopause est une étape naturelle de la vie qui peut s’accompagner de changements physiques et émotionnels. La Luxopuncture propose une méthode douce visant à favoriser la détente, à apaiser les tensions et à soutenir l’équilibre émotionnel pendant cette période.''',
     icon: Icons.water_drop_outlined,
     color: Color(0xFFEFF4FF),
+    imageAsset: 'assets/site/menopause.jpg',
     bullets: [
-      'Écoute des besoins individuels',
-      'Accompagnement des inconforts du quotidien',
-      'Suivi doux et personnalisé',
+      'Accompagner les changements de la ménopause',
+      'Favoriser la détente et un sommeil plus serein',
+      'Retrouver davantage de confort au quotidien',
     ],
   ),
 ];
@@ -185,6 +200,7 @@ class _ClauLuxoAppState extends State<ClauLuxoApp> {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: softBg,
+        fontFamily: 'Inter',
         colorScheme: ColorScheme.fromSeed(
           seedColor: aqua,
           brightness: Brightness.light,
@@ -316,24 +332,13 @@ class HomePage extends StatelessWidget {
       children: [
         const BrandHeader(),
         const SizedBox(height: 18),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(26),
-          child: Container(
-            height: 210,
-            width: double.infinity,
-            color: const Color(0xFFEAF7F7),
-            child: SvgPicture.asset(
-              'assets/hero.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+        const OfficialHeroGallery(),
         const SizedBox(height: 22),
         const Text(
           'Retrouvez sommeil, sérénité et vitalité grâce à la',
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontFamily: 'serif',
+            fontFamily: 'Sacramento',
             fontStyle: FontStyle.italic,
             fontSize: 24,
             color: ink,
@@ -381,10 +386,162 @@ class HomePage extends StatelessWidget {
         const InfoCard(
           title: 'Le bien-être par la lumière',
           text:
-              'Une méthode douce, naturelle et non invasive, avec des séances personnalisées selon vos besoins.',
+              'Découvrez une méthode douce, naturelle et non invasive. Chaque séance est personnalisée selon vos besoins et s’inscrit dans une démarche complémentaire de bien-être.',
           icon: Icons.light_mode_outlined,
         ),
+        const SizedBox(height: 22),
+        const AboutPreview(),
+        const SizedBox(height: 22),
+        const BenefitsSection(),
       ],
+    );
+  }
+}
+
+class OfficialHeroGallery extends StatelessWidget {
+  const OfficialHeroGallery({super.key});
+
+  static const images = [
+    'assets/site/hero-treatment.jpg',
+    'assets/site/hero-consultation.jpg',
+    'assets/site/hero-relaxation.jpg',
+    'assets/site/hero-beauty.jpg',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 680;
+        final children = images
+            .map(
+              (asset) => ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: Semantics(
+                  label: 'Image du centre de Luxopuncture',
+                  image: true,
+                  child: Image.asset(asset, fit: BoxFit.cover),
+                ),
+              ),
+            )
+            .toList();
+        if (compact) {
+          return SizedBox(
+            height: 190,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: children.length,
+              separatorBuilder: (_, index) => const SizedBox(width: 10),
+              itemBuilder: (_, index) => SizedBox(width: 270, child: children[index]),
+            ),
+          );
+        }
+        return SizedBox(
+          height: 240,
+          child: Row(
+            children: [
+              for (var index = 0; index < children.length; index++) ...[
+                Expanded(child: children[index]),
+                if (index != children.length - 1) const SizedBox(width: 4),
+              ],
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class AboutPreview extends StatelessWidget {
+  const AboutPreview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const text =
+        'Je suis Claudine Amérigo, praticienne en Luxopuncture. Je vous accompagne vers un mieux-être durable grâce à une méthode douce, naturelle et non invasive. Chaque séance est personnalisée selon vos besoins : gestion du stress, amélioration du sommeil, accompagnement dans la perte de poids ou recherche d’un meilleur équilibre émotionnel.';
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: line),
+      ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final image = ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Image.asset(
+              'assets/site/about.jpg',
+              height: 190,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          );
+          const copy = Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Claudine Amérigo',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: ink,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                'Directrice du centre de Luxopuncture',
+                style: TextStyle(color: aquaDark, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 12),
+              Text(text, style: TextStyle(color: muted, height: 1.5)),
+            ],
+          );
+          if (constraints.maxWidth < 700) {
+            return Column(children: [image, const SizedBox(height: 16), copy]);
+          }
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: image),
+              const SizedBox(width: 22),
+              const Expanded(child: copy),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class BenefitsSection extends StatelessWidget {
+  const BenefitsSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFF0EDF7), Color(0xFFEFFBFA)],
+        ),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Les bienfaits de la Luxopuncture',
+            style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700, color: ink),
+          ),
+          SizedBox(height: 14),
+          BulletLine(text: 'Réduction du stress et de l’anxiété'),
+          BulletLine(text: 'Amélioration du sommeil'),
+          BulletLine(text: 'Aide à la gestion du poids'),
+          BulletLine(text: 'Augmentation de l’énergie et de la vitalité'),
+          BulletLine(text: 'Diminution des tensions et des compulsions'),
+        ],
+      ),
     );
   }
 }
@@ -706,10 +863,14 @@ class ServiceCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 28,
-              backgroundColor: Colors.white,
-              child: Icon(service.icon, color: aquaDark, size: 28),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                service.imageAsset,
+                width: 86,
+                height: 86,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -757,6 +918,16 @@ class ServiceDetailPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Image.asset(
+              service.imageAsset,
+              width: double.infinity,
+              height: 190,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 14),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(22),
@@ -887,14 +1058,15 @@ class PricingPage extends StatelessWidget {
   const PricingPage({super.key});
 
   static const prices = [
-    ('Bilan préliminaire', 'Consultation personnalisée d’environ 1 h', '60 €'),
+    ('Bilan préliminaire', 'Consultation personnalisée d’environ 1 h pour définir vos objectifs et votre programme', '60 €'),
     ('Séance individuelle', 'Séance de Luxopuncture à l’unité', '55 €'),
-    ('Forfait perte de poids', 'Programme de 13 séances', '650 €'),
-    ('Forfait relaxation', 'Programme de 7 séances', '350 €'),
-    ('Bien-être ménopause', 'Programme de 8 séances', '400 €'),
-    ('Éclat du visage', 'Programme de 8 séances', '400 €'),
+    ('Forfait perte de poids', 'Programme de 13 séances adapté à une perte jusqu’à 10 kg', '650 €'),
+    ('Forfait relaxation', 'Programme de 7 séances pour le stress, l’anxiété et le sommeil', '350 €'),
+    ('Bien-être ménopause', '8 séances pour accompagner les symptômes de la ménopause', '400 €'),
+    ('Éclat du visage', '8 séances pour améliorer l’éclat et la fermeté de la peau', '400 €'),
     ('Arrêt du tabac', 'Programme complet de 7 séances', '350 €'),
-    ('Forfait entretien', '3 séances de suivi', '150 €'),
+    ('Séance d’entretien', 'Séance de suivi à l’unité', '55 €'),
+    ('Forfait entretien', '3 séances de suivi (50 € / séance)', '150 €'),
   ];
 
   @override
@@ -955,16 +1127,44 @@ class FaqPage extends StatelessWidget {
 
   static const items = [
     (
-      'Qu’est-ce que la Luxopuncture ?',
-      'Une approche de bien-être utilisant une stimulation lumineuse douce sur des points réflexes.',
+      'Qu’est-ce que la luxothérapie ?',
+      'La luxothérapie est une approche de bien-être qui utilise des séquences lumineuses et colorées associées à une stimulation visuelle douce. Elle vise à favoriser la détente, à réduire les tensions nerveuses et à accompagner l’équilibre émotionnel naturellement.',
+    ),
+    (
+      'Quels sont les bienfaits de la luxothérapie ?',
+      'Elle est recherchée pour favoriser la relaxation, accompagner la gestion du stress, améliorer la qualité du sommeil, soutenir l’équilibre émotionnel et contribuer à un mieux-être global.',
+    ),
+    (
+      'La luxothérapie peut-elle aider à mieux gérer le stress ?',
+      'Elle peut favoriser le relâchement, apaiser l’activité mentale excessive et procurer une sensation de calme intérieur.',
+    ),
+    (
+      'La luxothérapie aide-t-elle à améliorer le sommeil ?',
+      'En favorisant l’apaisement et la détente, elle peut contribuer à retrouver un rythme plus serein et un sommeil de meilleure qualité.',
+    ),
+    (
+      'La luxothérapie peut-elle accompagner la gestion du poids ?',
+      'Elle peut s’intégrer dans une démarche globale de bien-être et de rééquilibrage, en complément d’une bonne hygiène de vie.',
+    ),
+    (
+      'Comment se déroule une séance ?',
+      'La personne est installée face à l’appareil de luxothérapie dans un cadre calme et confortable. La stimulation visuelle est douce et respecte le confort de chacun.',
     ),
     (
       'Combien de temps dure une séance ?',
-      'Une séance dure généralement entre 20 et 30 minutes, selon les besoins de la personne.',
+      'Une séance dure généralement entre 20 et 30 minutes. La durée peut varier selon l’objectif recherché et les besoins de la personne.',
     ),
     (
-      'La méthode est-elle douloureuse ?',
-      'Elle est présentée comme douce, non invasive et généralement bien tolérée.',
+      'Combien de séances faut-il prévoir ?',
+      'Le nombre de séances dépend de la demande et de la sensibilité de chacun. Un accompagnement sur plusieurs séances peut être recommandé.',
+    ),
+    (
+      'La luxothérapie est-elle douloureuse ?',
+      'Non, c’est une méthode douce, non invasive et généralement bien tolérée.',
+    ),
+    (
+      'Y a-t-il des contre-indications ?',
+      'Comme pour toute approche utilisant une stimulation lumineuse, certaines précautions peuvent être nécessaires. Un échange préalable permet d’adapter l’accompagnement.',
     ),
     (
       'La Luxopuncture remplace-t-elle un suivi médical ?',
@@ -1067,6 +1267,13 @@ class _BookingPageState extends State<BookingPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           StepIndicator(step: step),
+          const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: () => openExternalUrl(calendlyUrl),
+            style: secondaryButton(),
+            icon: const Icon(Icons.open_in_new),
+            label: const Text('Réserver directement sur Calendly'),
+          ),
           const SizedBox(height: 24),
           if (step == 0) _dateStep(),
           if (step == 1) _detailsStep(),
@@ -1567,7 +1774,16 @@ class ContactPage extends StatelessWidget {
             title: Text('Adresse', style: TextStyle(fontWeight: FontWeight.w700)),
             subtitle: Text('28 impasse des Acacias\n13320 Bouc-Bel-Air'),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: SizedBox(
+              height: 250,
+              width: double.infinity,
+              child: buildGoogleMapEmbed(),
+            ),
+          ),
+          const SizedBox(height: 12),
           FilledButton.icon(
             onPressed: () => openLink(mapUrl),
             style: primaryButton(),
@@ -1581,9 +1797,46 @@ class ContactPage extends StatelessWidget {
             icon: const Icon(Icons.language),
             label: const Text('Ouvrir le site officiel'),
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: 10),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.phone_outlined, color: lavender),
+            title: const Text('Téléphone', style: TextStyle(fontWeight: FontWeight.w700)),
+            subtitle: const Text('+33 6 20 98 58 06'),
+            onTap: () => openLink(phoneUrl),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.mail_outline, color: lavender),
+            title: const Text('E-mail', style: TextStyle(fontWeight: FontWeight.w700)),
+            subtitle: const Text('contact@luxotherapie-amerigo.com'),
+            onTap: () => openLink(emailUrl),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 10,
+            runSpacing: 8,
+            children: [
+              OutlinedButton.icon(
+                onPressed: () => openLink(facebookUrl),
+                icon: const Icon(Icons.facebook),
+                label: const Text('Facebook'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => openLink(instagramUrl),
+                icon: const Icon(Icons.camera_alt_outlined),
+                label: const Text('Instagram'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () => openLink(calendlyUrl),
+                icon: const Icon(Icons.calendar_month_outlined),
+                label: const Text('Calendly'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
           const Text(
-            'Les coordonnées téléphoniques et e-mail doivent être confirmées avec Claudine avant leur intégration définitive.',
+            'Les informations de contact et le plan sont repris du site officiel clauluxo.fr.',
             style: TextStyle(color: muted, fontSize: 12, height: 1.4),
           ),
         ],
