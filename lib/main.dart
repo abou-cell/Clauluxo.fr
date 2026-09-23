@@ -1235,7 +1235,10 @@ class _BookingPageState extends State<BookingPage> {
   final phoneController = TextEditingController();
 
   final times = const ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
-  final serviceNames = services.map((service) => service.title).toList();
+  final serviceNames = <String>[
+    'Bilan préliminaire',
+    ...services.map((service) => service.title),
+  ];
 
   List<DateTime> get dates =>
       List.generate(7, (index) => DateTime.now().add(Duration(days: index + 1)));
