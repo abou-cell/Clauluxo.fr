@@ -687,6 +687,12 @@ class _OfficialHeroGalleryState extends State<OfficialHeroGallery> {
 
   static const slides = <_HeroSlideData>[
     _HeroSlideData(
+      image: 'assets/site/generated-hero.jpg',
+      eyebrow: 'NOUVELLE EXPÉRIENCE CLAULUXO',
+      title: 'Une parenthèse pour vous',
+      subtitle: 'Laissez la lumière accompagner votre moment de détente.',
+    ),
+    _HeroSlideData(
       image: 'assets/site/hero-treatment.jpg',
       eyebrow: 'CENTRE DE LUXOPUNCTURE',
       title: 'Une pause pour vous recentrer',
