@@ -569,7 +569,7 @@ class HomePage extends StatelessWidget {
               MaterialPageRoute(
                 builder: (_) => ServiceDetailPage(
                   service: service,
-                  onBook: onBook,
+                  onBook: (_) => onBook,
                 ),
               ),
             );
