@@ -2315,11 +2315,13 @@ class AppointmentCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      weekdayLabel(appointment.date.weekday) +
-                          ' ' +
-                          appointment.date.day.toString() +
-                          ' · ' +
-                          appointment.time,
+                      [
+                        weekdayLabel(appointment.date.weekday),
+                        ' ',
+                        appointment.date.day.toString(),
+                        ' · ',
+                        appointment.time,
+                      ].join(),
                       style: const TextStyle(color: muted),
                     ),
                     const SizedBox(height: 3),
@@ -3231,13 +3233,15 @@ class SummaryCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  weekdayLabel(date.weekday) +
-                      ' ' +
-                      date.day.toString() +
-                      ' ' +
-                      monthLabel(date.month) +
-                      ' · ' +
-                      time,
+                  [
+                    weekdayLabel(date.weekday),
+                    ' ',
+                    date.day.toString(),
+                    ' ',
+                    monthLabel(date.month),
+                    ' · ',
+                    time,
+                  ].join(),
                   style: const TextStyle(color: muted, fontSize: 12),
                 ),
               ],
