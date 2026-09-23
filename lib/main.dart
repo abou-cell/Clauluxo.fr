@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -100,7 +101,7 @@ class BrandHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset('assets/logo.svg', height: compact ? 74 : 112, fit: BoxFit.contain),
+        SvgPicture.asset('assets/logo.svg', height: compact ? 74 : 112, fit: BoxFit.contain),
         const SizedBox(height: 8),
         Text('Centre de Luxopuncture', textAlign: TextAlign.center, style: TextStyle(fontSize: compact ? 18 : 24, fontWeight: FontWeight.w700, color: ink)),
         Text('Claudine Amerigo', style: TextStyle(fontSize: compact ? 16 : 20, color: aquaDark, fontWeight: FontWeight.w700)),
@@ -123,7 +124,7 @@ class HomePage extends StatelessWidget {
       children: [
         const BrandHeader(),
         const SizedBox(height: 16),
-        ClipRRect(borderRadius: BorderRadius.circular(26), child: Image.asset('assets/hero.svg', height: 190, width: double.infinity, fit: BoxFit.cover)),
+        ClipRRect(borderRadius: BorderRadius.circular(26), child: SvgPicture.asset('assets/hero.svg', height: 190, width: double.infinity, fit: BoxFit.cover)),
         const SizedBox(height: 22),
         Text(
           'Retrouvez sommeil, sérénité et vitalité grâce à la',
@@ -211,6 +212,9 @@ class ServicesPage extends StatelessWidget {
       ('Gestion du stress', 'Apaisez le mental, retrouvez la sérénité', Icons.self_improvement, const Color(0xFFFFF4E9)),
       ('Arrêt du tabac', 'Un accompagnement vers plus de liberté', Icons.eco_outlined, const Color(0xFFECF8EF)),
       ('Perte de poids', 'Un accompagnement global et progressif', Icons.balance, const Color(0xFFF3EEFF)),
+      ('Énergie et vitalité', 'Retrouvez tonus et équilibre au quotidien', Icons.bolt_outlined, const Color(0xFFFFF5E8)),
+      ('Éclat du visage', 'Une parenthèse beauté et détente', Icons.face_retouching_natural, const Color(0xFFFFEEF4)),
+      ('Ménopause', 'Un accompagnement personnalisé', Icons.water_drop_outlined, const Color(0xFFEFF4FF)),
     ];
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
@@ -219,6 +223,19 @@ class ServicesPage extends StatelessWidget {
         const SizedBox(height: 24),
         const Text('Nos services', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: ink)),
         const Text('Retrouvez votre équilibre naturellement.', style: TextStyle(color: Color(0xFF737B90))),
+        const SizedBox(height: 14),
+        Container(
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(color: line),
+          ),
+          child: const Text(
+            'La Luxopuncture est une méthode douce, naturelle et non invasive qui utilise la lumière infrarouge pour stimuler des points réflexes. Chaque séance est personnalisée selon vos besoins.',
+            style: TextStyle(color: Color(0xFF687086), height: 1.45),
+          ),
+        ),
         const SizedBox(height: 16),
         ...[
           ('À propos', Icons.person_outline),
@@ -397,7 +414,7 @@ class _BookingPageState extends State<BookingPage> {
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text('Planifier une séance', style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, color: ink)), Image.asset('assets/logo.svg', height: 54)]),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text('Planifier une séance', style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700, color: ink)), SvgPicture.asset('assets/logo.svg', height: 54)]),
         const SizedBox(height: 18),
         Row(children: List.generate(3, (i) => Expanded(child: Column(children: [CircleAvatar(radius: 16, backgroundColor: i <= step ? aqua : const Color(0xFFE9ECF4), child: Text('${i + 1}', style: TextStyle(color: i <= step ? Colors.white : ink, fontWeight: FontWeight.w700))), const SizedBox(height: 6), Text(['Date & heure', 'Détails', 'Confirmation'][i], style: TextStyle(fontSize: 11, color: i == step ? aquaDark : const Color(0xFF8A90A0), fontWeight: i == step ? FontWeight.w700 : FontWeight.w500))])))),
         const SizedBox(height: 24),
@@ -445,7 +462,7 @@ class _BookingPageState extends State<BookingPage> {
     return Column(children: [
       Container(width: double.infinity, padding: const EdgeInsets.all(20), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: line)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Row(children: [CircleAvatar(backgroundColor: Color(0xFFE6FAF8), child: Icon(Icons.check, color: aquaDark)), SizedBox(width: 12), Text('Vérifiez votre rendez-vous', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18))]), const SizedBox(height: 18), detailLine(Icons.spa_outlined, 'Séance', service), detailLine(Icons.person_outline, 'Praticienne', 'Claudine Amerigo'), detailLine(Icons.calendar_today_outlined, 'Date', '${dayLabel(d)} ${d.day}/${d.month}/${d.year}'), detailLine(Icons.schedule, 'Heure', selectedTime), detailLine(Icons.person, 'Pour', name.text.trim())])),
       const SizedBox(height: 18),
-      const Text('Prototype V0 : aucune réservation réelle n’est envoyée au centre.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF777E91), fontSize: 12)),
+      const Text('Prototype : cette demande est enregistrée localement. La connexion à l’agenda et l’envoi au centre seront ajoutés avec Firebase.', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFF777E91), fontSize: 12)),
       const SizedBox(height: 18),
       FilledButton(onPressed: () { widget.onBooked(Appointment(service: service, date: d, time: selectedTime, name: name.text.trim())); ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Rendez-vous de démonstration enregistré.'))); setState(() => step = 0); }, style: primaryButton(), child: const Text('Confirmer le rendez-vous')),
       const SizedBox(height: 10),
@@ -503,7 +520,7 @@ class ContactPage extends StatelessWidget {
     const SizedBox(height: 18),
     const BrandHeader(compact: true),
     const SizedBox(height: 22),
-    Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(22), border: Border.all(color: line)), child: Column(children: [contactTile(Icons.language, 'Site web', 'clauluxo.fr'), contactTile(Icons.phone_outlined, 'Téléphone', 'Accès depuis le site'), contactTile(Icons.mail_outline, 'E-mail', 'Accès depuis le site'), contactTile(Icons.access_time, 'Horaires', 'À synchroniser avec le site')])),
+    Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(22), border: Border.all(color: line)), child: Column(children: [contactTile(Icons.language, 'Site web', 'clauluxo.fr'), contactTile(Icons.phone_outlined, 'Téléphone', 'Appeler le centre'), contactTile(Icons.mail_outline, 'E-mail', 'Envoyer un message'), contactTile(Icons.access_time, 'Horaires', 'Sur rendez-vous')])),
     const SizedBox(height: 16),
     Container(height: 210, decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), gradient: const LinearGradient(colors: [Color(0xFFE7F5F3), Color(0xFFEFEAF9)])), child: Stack(children: [Positioned.fill(child: CustomPaint(painter: MapPainter())), const Center(child: CircleAvatar(radius: 28, backgroundColor: aqua, child: Icon(Icons.location_on, color: Colors.white, size: 31))), const Positioned(left: 14, right: 14, bottom: 14, child: Card(elevation: 0, child: Padding(padding: EdgeInsets.all(12), child: Row(children: [Icon(Icons.place_outlined, color: lavender), SizedBox(width: 10), Expanded(child: Text('Centre de Luxopuncture Claudine Amerigo', style: TextStyle(fontWeight: FontWeight.w600))), Icon(Icons.chevron_right)]))))])),
     const SizedBox(height: 20),
