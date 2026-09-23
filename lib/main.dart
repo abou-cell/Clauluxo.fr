@@ -427,28 +427,35 @@ class _SideNavigation extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 18),
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: expanded ? 24 : 12),
-            child: Row(
-              mainAxisAlignment: expanded
-                  ? MainAxisAlignment.start
-                  : MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset('assets/logo.svg', width: 44, height: 44),
-                if (expanded) ...[
-                  const SizedBox(width: 10),
-                  const Text(
-                    'ClauLuxo',
-                    style: TextStyle(
-                      color: ink,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                    ),
+          expanded
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 44,
+                        height: 44,
+                        child: SvgPicture.asset('assets/logo.svg'),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        'ClauLuxo',
+                        style: TextStyle(
+                          color: ink,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ],
-            ),
-          ),
+                )
+              : Center(
+                  child: SizedBox(
+                    width: 44,
+                    height: 44,
+                    child: SvgPicture.asset('assets/logo.svg'),
+                  ),
+                ),
           const SizedBox(height: 26),
           Expanded(
             child: NavigationRail(
