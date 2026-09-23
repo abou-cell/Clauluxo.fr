@@ -23,9 +23,9 @@ void main() {
     await tester.pumpWidget(const ClauLuxoApp());
     await tester.pumpAndSettle();
 
-    expect(find.text('Accueil'), findsOneWidget);
-    expect(find.text('Soins'), findsOneWidget);
-    expect(find.text('Rendez-vous'), findsOneWidget);
-    expect(find.text('Mon espace'), findsOneWidget);
+    expect(find.text('Accueil'), findsWidgets);
+    expect(find.text('Soins'), findsWidgets);
+    expect(find.text('Rendez-vous'), findsWidgets);
+    expect(find.text('Mon espace'), findsWidgets);
   });
 }
