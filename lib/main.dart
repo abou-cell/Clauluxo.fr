@@ -1067,7 +1067,7 @@ class QuickActionPanel extends StatelessWidget {
           }
           return Row(
             children: [
-              const Expanded(child: copy),
+              Expanded(child: copy),
               const SizedBox(width: 22),
               SizedBox(width: 235, child: actions),
             ],
@@ -2170,7 +2170,7 @@ class SpacePage extends StatelessWidget {
         if (appointment == null)
           EmptyAppointment(onBook: onBook)
         else
-          AppointmentCard(appointment: appointment, onCancel: onCancel),
+          AppointmentCard(appointment: appointment!, onCancel: onCancel),
         const SizedBox(height: 18),
         const InfoCard(
           title: 'Prototype de réservation',
