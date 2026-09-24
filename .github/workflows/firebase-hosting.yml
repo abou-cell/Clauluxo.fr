@@ -30,6 +30,59 @@ jobs:
       - name: Build Flutter Web
         run: flutter build web --release --no-wasm-dry-run
 
+      - name: Bust stale Flutter web caches
+        env:
+          CLAULUXO_VERSION: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          version = os.environ["CLAULUXO_VERSION"][:12]
+          root = Path("build/web")
+
+          for path in root.glob("*.js"):
+              content = path.read_text(encoding="utf-8")
+              content = content.replace(
+                  "main.dart.js",
+                  f"main.dart.js?v={version}",
+              )
+              path.write_text(content, encoding="utf-8")
+
+          index = root / "index.html"
+          content = index.read_text(encoding="utf-8")
+          content = content.replace(
+              "flutter_bootstrap.js",
+              f"flutter_bootstrap.js?v={version}",
+          )
+
+          cache_cleanup = f"""
+          <script>
+            (function () {{
+              var version = "{version}";
+              if ("serviceWorker" in navigator) {{
+                navigator.serviceWorker.getRegistrations().then(function (registrations) {{
+                  registrations.forEach(function (registration) {{
+                    registration.unregister();
+                  }});
+                }});
+              }}
+              if ("caches" in window) {{
+                caches.keys().then(function (keys) {{
+                  return Promise.all(keys.map(function (key) {{
+                    return caches.delete(key);
+                  }}));
+                }});
+              }}
+              document.documentElement.setAttribute("data-clauluxo-version", version);
+            }})();
+          </script>
+          """
+
+          content = content.replace("</head>", cache_cleanup + "</head>", 1)
+          index.write_text(content, encoding="utf-8")
+          PY
+
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
