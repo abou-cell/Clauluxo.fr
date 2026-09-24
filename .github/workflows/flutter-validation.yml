@@ -2,7 +2,7 @@ name: Clauluxo Flutter validation
 
 on:
   push:
-    branches: [main, clauluxo-v1-content]
+    branches: [main, clauluxo-v1-content, clauluxo-prototype-spark]
   pull_request:
     branches: [main]
 
@@ -18,5 +18,5 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
-      - run: flutter build web --release
+      - run: flutter build web --release --no-wasm-dry-run
       - run: flutter build apk --release
